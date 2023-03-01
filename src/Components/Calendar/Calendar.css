@@ -1,0 +1,22 @@
+.calendar-select {
+      border: none;
+      background-color: white;
+      font-weight: 700;
+}
+
+.fa-caret-right,
+.fa-caret-left,
+.fa-house {
+      font-size: 22px;
+      align-self: center;
+}
+
+.fa-house {
+      font-size: 16px;
+
+}
+
+.react-datepicker__header {
+      background-color: white;
+      padding: 0;
+}
