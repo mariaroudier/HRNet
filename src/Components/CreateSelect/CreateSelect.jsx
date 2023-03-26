@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 
-function CreateSelect({options}) {
+function CreateSelect({options, setSelect}) {
       
       const [isDisabled, setIsDisabled] = useState(false);
       const [isLoading, setIsLoading] = useState(false);
       const [isRtl, setIsRtl] = useState(false);
+      const [ newSelect, setNewSelect ] = useState("")
 
+      useEffect(() => {
+            if(newSelect) {
+                  setSelect(newSelect)
+            }else{
+                  setSelect(options[0])
+            }
+      })
       return (
             <>
                   <Select
@@ -19,6 +27,8 @@ function CreateSelect({options}) {
                   isRtl={isRtl}
                   name="name"
                   options={options}
+                  onChange={(newSelect) => setNewSelect(newSelect)}
+                  closeMenuOnSelect={true}
                   />
             
                   <div

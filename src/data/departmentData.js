@@ -1,8 +1,8 @@
 const departments = [
-      { label: 'Sales' },
-      { label: 'Marketing' },
-      { label: 'Human Resources' },
-      { label: 'Legal' }
+      { 'value': 'Sales', 'label': 'Sales' },
+      { 'value': 'Marketing', 'label': 'Marketing' },
+      { 'value': 'Human Resources', 'label': 'Human Resources' },
+      { 'value': 'Legal', 'label': 'Legal' }
 ]
 
 

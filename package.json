@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
+    "@mashka17/react-simple-modal": "^0.1.6",
+    "@reduxjs/toolkit": "^1.9.3",
     "@table-library/react-table-library": "^4.0.28",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -11,9 +13,13 @@
     "react": "^18.2.0",
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
+    "react-use-pagination": "^2.0.1",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
