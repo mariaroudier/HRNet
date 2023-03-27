@@ -1,5 +1,5 @@
 import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
-import employeeSlice from "./employeeSlice";
+import { employeesStateReducer } from "./employeeSlice";
 import {
       persistStore,
       persistReducer,
@@ -14,7 +14,7 @@ import storage from 'redux-persist/lib/storage'
 
 
 const rootReducer = combineReducers({
-      employee: employeeSlice.reducer
+      employees: employeesStateReducer
 })
 
 const persistConfig = {

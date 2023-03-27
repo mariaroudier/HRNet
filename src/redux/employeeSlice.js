@@ -1,39 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const employees =
-      localStorage.getItem("employees") !== null
-            ? JSON.parse(localStorage.getItem("employees"))
-            : [];
+// const employees =
+//       localStorage.getItem("employees") !== null
+//             ? JSON.parse(localStorage.getItem("employees"))
+//             : [];
 
-const setItemFunc = (employee) => {
-      localStorage.setItem("employees", JSON.stringify(employee));
-      // localStorage.setItem("firstName", JSON.stringify(firstName));
-      // localStorage.setItem("lastName", JSON.stringify(lastName));
-};
+//const setItemFunc = (employee) => {
+//localStorage.setItem("employees", JSON.stringify(employee));
+// localStorage.setItem("firstName", JSON.stringify(firstName));
+// localStorage.setItem("lastName", JSON.stringify(lastName));
+//};
+
+// const initialState = {
+//       employees: employees,
+// };
 
 const initialState = {
-      employees: employees,
+      employees: [],
 };
-
 const employeeSlice = createSlice({
-      name: "employee",
+      name: "employeesState",
       initialState,
-
       reducers: {
             addEmployee(state, action) {
-                  const newEmployee = action.payload
                   console.log(action.payload)
-                  state.employees.push({
-                        newEmployee
+                  // const newEmployee = action.payload
+                  state.employees.push(
+                        //{
+                        // newEmployee
+                        action.payload
 
-                  });
-                  setItemFunc(
-                        state.employees.map((el) => el),
+                        //}
                   );
+                  // setItemFunc(
+                  //       state.employees.map((el) => el),
+                  // );
             }
       }
 })
 
-export const employeeActions = employeeSlice.actions;
-export default employeeSlice;
+// export const employeeActions = employeeSlice.actions;
+export const { addEmployee } = employeeSlice.actions
+//export default employeeSlice;
+export const employeesStateReducer = employeeSlice.reducer;

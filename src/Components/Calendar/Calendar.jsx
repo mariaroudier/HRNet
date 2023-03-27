@@ -10,15 +10,13 @@ import './Calendar.css'
 
 function Calendar({setDate}) {
       const [ newDate, setNewDate] = useState("");
-        if( newDate){
-            const finalMonth = getMonth(newDate) + 1
-            const finalYear = getYear(newDate)
-            const finalDay = getDate(newDate)
-            const finalDate = `${finalMonth}/${finalDay}/${finalYear}`
-            setDate(finalDate)
-        }
-
-
+      if(newDate){
+        const finalMonth = getMonth(newDate) + 1
+        const finalYear = getYear(newDate)
+        const finalDay = getDate(newDate)
+        const finalDate = `${finalMonth}/${finalDay}/${finalYear}`
+        setDate(finalDate)
+      }
       const years = range(1940, getYear(new Date()) + 1, 1);
       const months = [
         "January",
@@ -55,7 +53,7 @@ function Calendar({setDate}) {
               <div style={{
                 display:"flex"
               }}>
-                <button className="calendar-select" onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+                <button className="calendar-select" onClick={decreaseMonth}>
                   <i class="fa-solid fa-caret-left"></i>
                 </button>
                 <i class="fa-solid fa-house"></i>

@@ -2,7 +2,7 @@ import React, { useState, useSelector } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { useDispatch } from "react-redux";
-import { employeeActions } from "../../redux/employeeSlice";
+import { addEmployee } from "../../redux/employeeSlice"
 
 import Calendar from '../../Components/Calendar/Calendar'
 import CreateSelect from '../../Components/CreateSelect/CreateSelect'
@@ -14,12 +14,8 @@ import './Home.css'
 
 function Home(){
 
-      
-      // const lastName = useSelector((state) => state.lastName.value)
-      // const token = useSelector((state) => state.token.value);
-
       const dispatch = useDispatch();
-      const [ isVisible, setVisibility ] = React.useState(false)
+      const [ modalState, setModalVisible ] = React.useState(false)
       const [firstName, setFirstName] = useState("")
       const [lastName, setLastName] = useState("")
       const [birthDate, setBirthDate] = useState("")
@@ -30,43 +26,42 @@ function Home(){
       const [zipCode, setZipCode] = useState("")
       const [department, setDepartment] = useState("")
 
-      // const firstName1 = useSelector((state) => state.firstName.value);
-      // console.log(firstName1)
 
       const employee = {
-            'first-name': firstName,
-            'last-name': lastName ,
-            'start-date': startDate,
+            'firstName': firstName,
+            'lastName': lastName ,
+            'startDate': startDate,
             'department': department,
-            'date-of-birth': birthDate,
+            'birthDate': birthDate,
             'street': street,
             'city': city,
             'state': state,
-            'zip-code': zipCode
+            'zipCode': zipCode
       }
 
-      const saveEmployee = () => {
-            console.log(employee['start-date'])
+      const saveEmployee = (e) => {
+            e.preventDefault()
             dispatch(
-                  employeeActions.addEmployee({
-                  firstName,
-                  lastName,
-                  birthDate,
-                  startDate,
-                  street,
-                  city,
-                  state,
-                  zipCode,
-                  department
-                  })
+                  addEmployee({employee})
             );
-            setVisibility(true)
+            setModalVisible(true)
+            document.getElementById("create-employee").reset();
+            setFirstName('')
+            setLastName('')
+            setBirthDate('')
+            setStartDate('')
+            setStreet('')
+            setCity('')
+            setState('')
+            setZipCode('')
+            setDepartment('')
       }
-      const closeModal = (isVisible) => {
-            setVisibility(false)
-            return isVisible
+      const closeModal = () => {
+            setModalVisible(false)
+            return modalState
       }
 
+      
       return (
             <main>
                   <div className="title">
@@ -98,7 +93,7 @@ function Home(){
                               <label htmlFor="department">Department</label>
                                     <CreateSelect options={departments} setSelect={setDepartment}/>
                               <button className="btn-submit" type="submit" onClick={saveEmployee}>Save</button>
-                              {isVisible && <ReactModal text="Employee Created !" closeModal={closeModal}/>}
+                              {modalState && <ReactModal text="Employee Created !" closeModal={closeModal}/>}
                         </form>
                   </div>
             </main>
