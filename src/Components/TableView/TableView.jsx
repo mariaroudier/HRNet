@@ -116,7 +116,7 @@ function TableView(){
                         <label htmlFor="select">Show
                               <select className='show-entries' onChange={changeSelect}>
                                     {showEntries.map(entry => {
-                                          return <option >{entry}</option>
+                                          return <option key={entry}>{entry}</option>
                                     })}
                               </select>entries
                         </label>
@@ -129,36 +129,36 @@ function TableView(){
                         <>
                         <Header>
                               <HeaderRow>
-                              <HeaderCellSort sortKey="FIRSTNAME">First name</HeaderCellSort>
-                              <HeaderCellSort sortKey="LASTNAME">Last name</HeaderCellSort>
-                              <HeaderCellSort sortKey="STARTDATE">Start date</HeaderCellSort>
-                              <HeaderCellSort sortKey="DEPARTMENT">Department</HeaderCellSort>
-                              <HeaderCellSort sortKey="BIRTHDATE">Date of birth</HeaderCellSort>
-                              <HeaderCellSort sortKey="STREET">Street</HeaderCellSort>
-                              <HeaderCellSort sortKey="CITY">City</HeaderCellSort>
-                              <HeaderCellSort sortKey="STATE">State</HeaderCellSort>
-                              <HeaderCellSort sortKey="ZIPCODE">Zipcode</HeaderCellSort>
+                              <HeaderCellSort sortKey="FIRSTNAME" key="FIRSTNAME">First name</HeaderCellSort>
+                              <HeaderCellSort sortKey="LASTNAME" key="LASTNAME">Last name</HeaderCellSort>
+                              <HeaderCellSort sortKey="STARTDATE" key="STARTDATE">Start date</HeaderCellSort>
+                              <HeaderCellSort sortKey="DEPARTMENT" key="DEPARTMENT">Department</HeaderCellSort>
+                              <HeaderCellSort sortKey="BIRTHDATE" key="BIRTHDATE">Date of birth</HeaderCellSort>
+                              <HeaderCellSort sortKey="STREET" key="STREET">Street</HeaderCellSort>
+                              <HeaderCellSort sortKey="CITY" key="CITY">City</HeaderCellSort>
+                              <HeaderCellSort sortKey="STATE" key="STATE">State</HeaderCellSort>
+                              <HeaderCellSort sortKey="ZIPCODE" key="ZIPCODE">Zipcode</HeaderCellSort>
                               </HeaderRow>
                         </Header>
                         <Body>
                               {tableList.map((item) => (
                               <Row item={item.employee}>
-                              <Cell>{item.employee.firstName}</Cell>
-                              {/* <Cell>
-                                    {item.deadline.toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    })}
-                              </Cell> */}
-                              <Cell>{item.employee.lastName}</Cell>
-                              <Cell>{item.employee.startDate}</Cell>
-                              <Cell>{item.employee.department}</Cell>
-                              <Cell>{item.employee.birthDate}</Cell>
-                              <Cell>{item.employee.street}</Cell>
-                              <Cell>{item.employee.city}</Cell>
-                              <Cell>{item.employee.state}</Cell>
-                              <Cell>{item.employee.zipCode}</Cell>
+                                    <Cell >{item.employee.firstName}</Cell>
+                                    {/* <Cell>
+                                          {item.deadline.toLocaleDateString("en-US", {
+                                          year: "numeric",
+                                          month: "2-digit",
+                                          day: "2-digit",
+                                          })}
+                                    </Cell> */}
+                                    <Cell >{item.employee.lastName}</Cell>
+                                    <Cell >{item.employee.startDate}</Cell>
+                                    <Cell >{item.employee.department}</Cell>
+                                    <Cell >{item.employee.birthDate}</Cell>
+                                    <Cell >{item.employee.street}</Cell>
+                                    <Cell >{item.employee.city}</Cell>
+                                    <Cell >{item.employee.state}</Cell>
+                                    <Cell >{item.employee.zipCode}</Cell>
                               </Row>
                               ))}
                         </Body>

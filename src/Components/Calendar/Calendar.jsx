@@ -8,8 +8,9 @@ import './Calendar.css'
 
 
 
-function Calendar({setDate}) {
-      const [ newDate, setNewDate] = useState("");
+function Calendar({setDate, setDateInput}) {
+      const [ newDate, setNewDate ] = useState(undefined);
+
       if(newDate){
         const finalMonth = getMonth(newDate) + 1
         const finalYear = getYear(newDate)
@@ -53,10 +54,10 @@ function Calendar({setDate}) {
               <div style={{
                 display:"flex"
               }}>
-                <button className="calendar-select" onClick={decreaseMonth}>
-                  <i class="fa-solid fa-caret-left"></i>
+                <button className="calendar-select" onClick={ e=> { e.preventDefault(); decreaseMonth()}} disabled={prevMonthButtonDisabled}>
+                  <i className="fa-solid fa-caret-left"></i>
                 </button>
-                <i class="fa-solid fa-house"></i>
+                <button ><i className="fa-solid fa-house" onClick={(e) => { e.preventDefault(); changeYear("2023"); changeMonth("03")}}></i></button>
               </div>
               <div style={{
                 display:"flex",
@@ -85,7 +86,7 @@ function Calendar({setDate}) {
                 </select>
 
                 <button className="calendar-select" onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-                  <i class="fa-solid fa-caret-right"></i>
+                  <i className="fa-solid fa-caret-right"></i>
                 </button>
               </div>
             </div>
@@ -93,6 +94,8 @@ function Calendar({setDate}) {
           dateFormat="MM/dd/yyyy"
           onChange={(date) => setNewDate(date)}
           selected={newDate}
+          tabIndex={1}
+          placeholderText="Click to select a date"
         />
         
 
