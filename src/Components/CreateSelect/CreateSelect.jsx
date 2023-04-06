@@ -1,30 +1,40 @@
-import React, { useState } from 'react';
+import React, {  useState,useEffect } from 'react';
 import Select from 'react-select';
 
 
-function CreateSelect({options, setSelect}) {
-      
+function CreateSelect({reset, options, toCommitSelect}) {
       const [isDisabled, setIsDisabled] = useState(false);
       const [isLoading, setIsLoading] = useState(false);
       const [isRtl, setIsRtl] = useState(false);
 
-      
+      const [value, setValue] = useState(null);
+
+
+      useEffect(() => {
+            if(reset === true) {
+                  toCommitSelect(value)
+            }
+      }, [reset])
+
       return (
             <>
                   <Select
+                  //setValue={ () => resetSelect()}
                   className="basic-single"
                   classNamePrefix="select"
-                  defaultValue={options[0]}
                   isDisabled={isDisabled}
                   isLoading={isLoading}
                   isRtl={isRtl}
                   name="name"
                   options={options}
-                  onChange={(e) => setSelect(e.label)}
+                  onChange={ (e) => setValue(e.label) }
                   closeMenuOnSelect={true}
+                  tabIndex={0}
+                  role="option"
+                  selected={ value}   
                   />
-            
-                  <div
+                  {console.log(value)}
+                  {/* <div className='masha'
                   style={{
                   color: 'hsl(0, 0%, 40%)',
                   display: 'inline-block',
@@ -32,7 +42,7 @@ function CreateSelect({options, setSelect}) {
                   fontStyle: 'italic',
                   marginTop: '1em',
                   }} >
-                  </div>
+                  </div> */}
             </>
       )
 }

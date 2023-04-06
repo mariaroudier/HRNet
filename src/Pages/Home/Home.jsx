@@ -1,5 +1,6 @@
-import React, { useState, useSelector } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getMonth, getYear, getDate } from 'date-fns'
 
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/employeeSlice"
@@ -13,16 +14,11 @@ import './Home.css'
 
 
 function Home(){
-
+      //States for components
+      const [ modalState, setModalVisible ] = useState(false)
+      const [reset, setReset ] = useState(false)
+      
       const dispatch = useDispatch();
-      const [ modalState, setModalVisible ] = React.useState(false)
-      const [ dateInput , setDateInput] = React.useState(true)
-
-      const [isDepartmentSelected, setIsDepartmentSelected] = useState(false) 
-      const [isStateSelected, setIsStateSelected] = useState(false)
-      const [deptErr, setDeptErr] = useState("");
-      const [stateErr, setStateErr] = useState("");
-
       const [firstName, setFirstName] = useState("")
       const [lastName, setLastName] = useState("")
       const [birthDate, setBirthDate] = useState(undefined)
@@ -33,10 +29,34 @@ function Home(){
       const [zipCode, setZipCode] = useState("")
       const [department, setDepartment] = useState("")
 
-      const resetDate = (dateInput) => {
-            setDateInput(false)
-            return dateInput
+      const toCommitBirthDate = (selectedDate) => {
+            if(selectedDate){
+                  const finalMonth = getMonth(selectedDate) + 1
+                  const finalYear = getYear(selectedDate)
+                  const finalDay = getDate(selectedDate)
+                  const finalDate = `${finalMonth}/${finalDay}/${finalYear}`
+                  setBirthDate(finalDate)
+            }
       }
+
+      const toCommitStartDate = (selectedDate) => {
+            if(selectedDate){
+                  const finalMonth = getMonth(selectedDate) + 1
+                  const finalYear = getYear(selectedDate)
+                  const finalDay = getDate(selectedDate)
+                  const finalDate = `${finalMonth}/${finalDay}/${finalYear}`
+                  setStartDate(finalDate)
+            }
+      }
+
+      const toCommitState = (selectedOption) => {
+            setState(selectedOption)
+      }
+
+      const toCommitDepartment = (selectedOption) => {
+            setDepartment(selectedOption)
+      }
+
 
       const employee = {
             'firstName': firstName,
@@ -52,22 +72,12 @@ function Home(){
 
       const saveEmployee = (e) => {
             e.preventDefault()
-            if (isStateSelected === false) {
-                  setStateErr("err")
-            }
-            if (isDepartmentSelected === false) {
-                  setDeptErr("err")
-            }
-            if (isStateSelected && isDepartmentSelected) {
-                  setIsStateSelected(false);
-                  setIsDepartmentSelected(false);
-                  setDeptErr("");
-                  setStateErr("")
                   dispatch(
                         addEmployee({employee})
                   );
+                  setReset(true)
                   setModalVisible(true)
-                  setDateInput(false)
+
                   setFirstName('')
                   setLastName('')
                   setBirthDate(undefined)
@@ -77,14 +87,14 @@ function Home(){
                   setState('')
                   setZipCode('')
                   setDepartment('')
-            }
       }
+
       const closeModal = () => {
             setModalVisible(false)
+            setReset(false)
             return modalState
       }
 
-      
       return (
             <main>
                   <div className="title">
@@ -93,37 +103,38 @@ function Home(){
                   <div className="container">
                         <NavLink to="/employee-list">View Current Employees</NavLink>
                         <h2>Create Employee</h2>
-                        <form action="#" id="create-employee">
+                        <form action="#" id="create-employee" style={{ 
+                              width:'50%',
+                              display: 'flex', 
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              textAlign: 'center', }}>
                               <label htmlFor="first-name">First Name</label>
-                                    <input type="text" id="first-name" required value={firstName} onChange={e => setFirstName(e.target.value)}/>
+                                    <input type="text" id="first-name" placeholder="John" required value={firstName} onChange={e => setFirstName(e.target.value)}/>
                               <label htmlFor="last-name">Last Name</label>
-                                    <input type="text" id="last-name" required value={lastName} onChange={e => setLastName(e.target.value)}/>
+                                    <input type="text" id="last-name" placeholder="Walker"required value={lastName} onChange={e => setLastName(e.target.value)}/>
                               <label htmlFor="date-of-birth">Date of Birth</label>
-                                    <Calendar setDate={setBirthDate} setDateInput={resetDate}/>
+                                    <Calendar toCommitDate={toCommitBirthDate} reset={reset}/>
                               <label htmlFor="start-date">Start Date</label>
-                                    <Calendar setDate={setStartDate}/>
+                                    <Calendar toCommitDate={toCommitStartDate} reset={reset}/>
                               <fieldset className="address">
                                     <legend>Address</legend>
                                     <label htmlFor="street">Street</label>
-                                          <input id="street" type="text" required value={street} onChange={e => setStreet(e.target.value)}/>
+                                          <input className='set-input' id="street" placeholder="Shepard Blvd" type="text" required value={street} onChange={e => setStreet(e.target.value)}/>
                                     <label htmlFor="city">City</label>
-                                          <input id="city" type="text" required value={city} onChange={e => setCity(e.target.value)}/>
+                                          <input  className='set-input' id="city" type="text" placeholder="Columbia"required value={city} onChange={e => setCity(e.target.value)}/>
                                     <label htmlFor="state">State</label>
-                                          <CreateSelect options={states} setSelect={setState} placeholder="Select a state"/>
-                                          {stateErr==="err" ? <p className='select-required' id='department-required'>Please select a department</p> : null}
+                                          <CreateSelect options={states} reset={reset} toCommitSelect={toCommitState} placeholder="Select a state"/>
                                     <label htmlFor="zip-code">Zip Code</label>
-                                          <input id="zip-code" type="number" required value={zipCode} onChange={e => setZipCode(e.target.value)}/>
+                                          <input  className='set-input' id="zip-code" placeholder="00000"type="number" required value={zipCode} onChange={e => setZipCode(e.target.value)}/>
                               </fieldset>
                               <label htmlFor="department">Department</label>
-                                    <CreateSelect options={departments} setSelect={setDepartment} placeholder="Select a department"/>
-                                    {deptErr==="err" ? <p className='select-required' id='state-required'>Please select a state</p> : null} 
+                                    <CreateSelect options={departments} reset={reset} toCommitSelect={toCommitDepartment} placeholder="Select a department"/>
                               <button className="btn-submit" type="submit" onClick={(e)=> {saveEmployee(e)}} >Save</button>
                               {modalState && <ReactModal text="Employee Created !" closeModal={closeModal}/>}
                         </form>
                   </div>
             </main>
-
-
       )
 }
 

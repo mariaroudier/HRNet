@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import DatePicker  from "react-datepicker"
+import React, { useEffect, useState } from 'react';
+import DatePicker from "react-datepicker"
 import range  from 'lodash/range'
 import { getMonth, getYear, getDate } from 'date-fns'
 
@@ -8,16 +8,16 @@ import './Calendar.css'
 
 
 
-function Calendar({setDate, setDateInput}) {
-      const [ newDate, setNewDate ] = useState(undefined);
+function Calendar({ reset, toCommitDate }) {
 
-      if(newDate){
-        const finalMonth = getMonth(newDate) + 1
-        const finalYear = getYear(newDate)
-        const finalDay = getDate(newDate)
-        const finalDate = `${finalMonth}/${finalDay}/${finalYear}`
-        setDate(finalDate)
-      }
+      const [ selectedDate, onChangeDate ] = useState(undefined)
+
+      useEffect(() => {
+        if(reset === true) {
+          onChangeDate(undefined)
+        }
+      }, [reset])
+
       const years = range(1940, getYear(new Date()) + 1, 1);
       const months = [
         "January",
@@ -33,6 +33,8 @@ function Calendar({setDate, setDateInput}) {
         "November",
         "December",
       ];
+      
+      toCommitDate(selectedDate)
 
       return (
         <DatePicker
@@ -84,21 +86,19 @@ function Calendar({setDate, setDateInput}) {
                     </option>
                   ))}
                 </select>
-
-                <button className="calendar-select" onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+                <button className="calendar-select" onClick={e=> { e.preventDefault(); increaseMonth()}} disabled={nextMonthButtonDisabled}>
                   <i className="fa-solid fa-caret-right"></i>
                 </button>
               </div>
             </div>
           )}
           dateFormat="MM/dd/yyyy"
-          onChange={(date) => setNewDate(date)}
-          selected={newDate}
+          onChange={(date) => onChangeDate(date)}
+          selected={selectedDate}
           tabIndex={1}
           placeholderText="Click to select a date"
+          style={{alignItems:'center'}}
         />
-        
-
       );
 }
 
