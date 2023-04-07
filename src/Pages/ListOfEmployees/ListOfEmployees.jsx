@@ -11,7 +11,7 @@ function ListOfEmployees(){
       return (
             <main>
                    <div id="employee-div" className="container" style={{padding:"30px"}}>
-                        <h1>Current Employees</h1>
+                        <h1 className='titre'>Current Employees</h1>
                               <TableView />
                         <NavLink to="/">Home</NavLink>
                   </div>

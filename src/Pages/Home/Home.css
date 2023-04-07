@@ -1,3 +1,8 @@
+* {
+  font-weight: 400;
+  font-size: 14px;
+}
+
 a {
   color: steelblue;
   font-weight: 700;
@@ -40,6 +45,7 @@ label {
 legend {
   font-weight: 600;
   font-size: 17px;
+  color: steelblue;
 }
 
 .address {
@@ -69,7 +75,7 @@ input {
 }
 
 input::placeholder {
-  color: rgb(102, 102, 102);
+  color: rgba(102, 102, 102, 0.566);
   text-align: start;
   font-size: 14px;
 }

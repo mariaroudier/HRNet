@@ -16,7 +16,6 @@ import './Home.css'
 function Home(){
       //States for components
       const [ modalState, setModalVisible ] = useState(false)
-      const [reset, setReset ] = useState(false)
       
       const dispatch = useDispatch();
       const [firstName, setFirstName] = useState("")
@@ -49,13 +48,13 @@ function Home(){
             }
       }
 
-      const toCommitState = (selectedOption) => {
-            setState(selectedOption)
-      }
+      // const toCommitState = (selectedOption) => {
+      //       setState(selectedOption)
+      // }
 
-      const toCommitDepartment = (selectedOption) => {
-            setDepartment(selectedOption)
-      }
+      // const toCommitDepartment = (selectedOption) => {
+      //       setDepartment(selectedOption)
+      // }
 
 
       const employee = {
@@ -75,7 +74,6 @@ function Home(){
                   dispatch(
                         addEmployee({employee})
                   );
-                  setReset(true)
                   setModalVisible(true)
 
                   setFirstName('')
@@ -91,14 +89,13 @@ function Home(){
 
       const closeModal = () => {
             setModalVisible(false)
-            setReset(false)
             return modalState
       }
 
       return (
             <main>
                   <div className="title">
-                        <h1>HRnet</h1>
+                        <h1 className='titre'>HRnet</h1>
                   </div>
                   <div className="container">
                         <NavLink to="/employee-list">View Current Employees</NavLink>
@@ -124,12 +121,12 @@ function Home(){
                                     <label htmlFor="city">City</label>
                                           <input  className='set-input' id="city" type="text" placeholder="Columbia"required value={city} onChange={e => setCity(e.target.value)}/>
                                     <label htmlFor="state">State</label>
-                                          <CreateSelect options={states} reset={reset} toCommitSelect={toCommitState} placeholder="Select a state"/>
+                                          <CreateSelect options={states} value={state} toCommitSelect={setState} placeholder="Select a state"/>
                                     <label htmlFor="zip-code">Zip Code</label>
                                           <input  className='set-input' id="zip-code" placeholder="00000"type="number" required value={zipCode} onChange={e => setZipCode(e.target.value)}/>
                               </fieldset>
                               <label htmlFor="department">Department</label>
-                                    <CreateSelect options={departments} reset={reset} toCommitSelect={toCommitDepartment} placeholder="Select a department"/>
+                                    <CreateSelect options={departments} value={department} toCommitSelect={setDepartment} placeholder="Select a department"/>
                               <button className="btn-submit" type="submit" onClick={(e)=> {saveEmployee(e)}} >Save</button>
                               {modalState && <ReactModal text="Employee Created !" closeModal={closeModal}/>}
                         </form>

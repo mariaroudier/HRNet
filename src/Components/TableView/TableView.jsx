@@ -6,6 +6,7 @@ import { useTheme } from '@table-library/react-table-library/theme';
 import { DEFAULT_OPTIONS, getTheme } from '@table-library/react-table-library/material-ui';
 import { useSort,HeaderCellSort,SortIconPositions,SortToggleType, } from '@table-library/react-table-library/sort';
 
+import './TableView.css'
 
 function TableView(){
       // Design
@@ -113,15 +114,17 @@ function TableView(){
       return (
             <>
                   <div className='table-header' style={{ display:"flex", justifyContent:"space-between", width:"100%"}}>
-                        <label htmlFor="select">Show
-                              <select className='show-entries' onChange={changeSelect}>
+                        <label htmlFor="select" style={{fontSize:'14px', fontWeight:'400'}}>
+                              Show
+                              <select className='show-entries' onChange={changeSelect} style={{marginLeft:'10px', marginRight:'10px',borderColor:'steelblue', color:'steelblue', height:'29px', fontWeight:'600'}}>
                                     {showEntries.map(entry => {
-                                          return <option key={entry}>{entry}</option>
+                                          return <option key={entry} style={{borderColor:'steelblue'}}>{entry}</option>
                                     })}
                               </select>entries
                         </label>
-                        <label htmlFor="search">Search:
-                              <input id="search" type="text" value={search} onChange={handleSearch} />
+                        <label htmlFor="search" style={{fontSize:'14px',fontWeight:'400'}}>
+                              Search:
+                              <input id="search" type="text" value={search} onChange={handleSearch} style={{textAlign:'left', marginLeft:'10px', borderColor:'steelblue',height:'29px', color:'steelblue', fontWeight:'600'}}/>
                         </label>
                   </div>
                   <Table data={newData} sort={sort} theme={theme} pagination={pagination} style={{color:"black"}}>
@@ -129,15 +132,15 @@ function TableView(){
                         <>
                         <Header>
                               <HeaderRow>
-                              <HeaderCellSort sortKey="FIRSTNAME" key="FIRSTNAME">First name</HeaderCellSort>
-                              <HeaderCellSort sortKey="LASTNAME" key="LASTNAME">Last name</HeaderCellSort>
-                              <HeaderCellSort sortKey="STARTDATE" key="STARTDATE">Start date</HeaderCellSort>
-                              <HeaderCellSort sortKey="DEPARTMENT" key="DEPARTMENT">Department</HeaderCellSort>
-                              <HeaderCellSort sortKey="BIRTHDATE" key="BIRTHDATE">Date of birth</HeaderCellSort>
-                              <HeaderCellSort sortKey="STREET" key="STREET">Street</HeaderCellSort>
-                              <HeaderCellSort sortKey="CITY" key="CITY">City</HeaderCellSort>
-                              <HeaderCellSort sortKey="STATE" key="STATE">State</HeaderCellSort>
-                              <HeaderCellSort sortKey="ZIPCODE" key="ZIPCODE">Zipcode</HeaderCellSort>
+                                    <HeaderCellSort sortKey="FIRSTNAME" key="FIRSTNAME" className='cell-titre'>First name</HeaderCellSort>
+                                    <HeaderCellSort sortKey="LASTNAME" key="LASTNAME" className='cell-titre'>Last name</HeaderCellSort>
+                                    <HeaderCellSort sortKey="STARTDATE" key="STARTDATE" className='cell-titre'>Start date</HeaderCellSort>
+                                    <HeaderCellSort sortKey="DEPARTMENT" key="DEPARTMENT" className='cell-titre'>Department</HeaderCellSort>
+                                    <HeaderCellSort sortKey="BIRTHDATE" key="BIRTHDATE" className='cell-titre'>Date of birth</HeaderCellSort>
+                                    <HeaderCellSort sortKey="STREET" key="STREET" className='cell-titre'>Street</HeaderCellSort>
+                                    <HeaderCellSort sortKey="CITY" key="CITY" className='cell-titre'>City</HeaderCellSort>
+                                    <HeaderCellSort sortKey="STATE" key="STATE" className='cell-titre'>State</HeaderCellSort>
+                                    <HeaderCellSort sortKey="ZIPCODE" key="ZIPCODE" className='cell-titre'>Zipcode</HeaderCellSort>
                               </HeaderRow>
                         </Header>
                         <Body>
@@ -167,7 +170,7 @@ function TableView(){
                   </Table>
 
                   <div className='table-footer' style={{display:"flex", justifyContent:"space-between", width:"100%"}}>
-                        <span>Showing {startEntry} to {endEntry} of {newData.nodes.length} entries</span>
+                        <span>Showing <b className='bold-text'>{startEntry}</b> to <b className='bold-text'>{endEntry}</b> of <b className='bold-text'>{newData.nodes.length}</b> entries</span>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                               <span>Total Pages: {pagination.state.getTotalPages(newData.nodes)}</span>
                               <span>Page:{' '} {pagination.state.getPages(newData.nodes).map((_, index) => (
