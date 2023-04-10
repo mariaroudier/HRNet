@@ -4,10 +4,10 @@ import { getMonth, getYear, getDate } from 'date-fns'
 
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/employeeSlice"
+import ReactModal from '@mashka17/react-simple-modal'
 
 import Calendar from '../../Components/Calendar/Calendar'
 import CreateSelect from '../../Components/CreateSelect/CreateSelect'
-import ReactModal from '@mashka17/react-simple-modal'
 import { states } from '../../data/statesData'
 import { departments } from '../../data/departmentData'
 import './Home.css'

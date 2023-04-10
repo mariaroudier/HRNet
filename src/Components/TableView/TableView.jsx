@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { useSelector } from "react-redux";
 import { usePagination } from '@table-library/react-table-library/pagination';
 import {Table,Header,HeaderRow,Body,Row,HeaderCell,Cell,} from "@table-library/react-table-library/table";
@@ -9,18 +9,13 @@ import { useSort,HeaderCellSort,SortIconPositions,SortToggleType, } from '@table
 import './TableView.css'
 
 function TableView(){
-      // Design
+      // Imported design of the library
       const materialTheme = getTheme({
             ...DEFAULT_OPTIONS,
             striped: true,
             highlightOnHover: true,
       });
       const customTheme = {
-            // Table: `
-            //       --data-table-library_grid-template-columns:  70px repeat(5, minmax(0, 1fr));
-            
-            //       margin: 5px 0px;
-            // `,
             HeaderRow: `
             .th {
               border-bottom: 1px solid #a0a8ae;
@@ -158,13 +153,6 @@ function TableView(){
                         {tableList.map((item) => (
                         <Row item={item.employee} style={{width:'100%'}}>
                               <Cell >{item.employee.firstName}</Cell>
-                              {/* <Cell>
-                                    {item.deadline.toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    })}
-                              </Cell> */}
                               <Cell >{item.employee.lastName}</Cell>
                               <Cell >{item.employee.startDate}</Cell>
                               <Cell >{item.employee.department}</Cell>
