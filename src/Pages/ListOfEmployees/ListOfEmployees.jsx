@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from "react-redux";
 import './ListOfEmployees.css'
 import TableView from '../../Components/TableView/TableView';
 
@@ -10,10 +9,10 @@ function ListOfEmployees(){
 
       return (
             <main>
-                   <div id="employee-div" className="container" style={{padding:"30px"}}>
-                        <h1 className='titre'>Current Employees</h1>
+                   <div id="employee-div" className="container">
+                        <h1 className='titre' style={{color: 'white',lineHeight: '2',width: '100%',textAlign: 'center',backgroundColor: 'steelblue'}}>Current Employees</h1>
                               <TableView />
-                        <NavLink to="/">Home</NavLink>
+                        <NavLink className='link' to="/" aria-label="To come back at home page">Home</NavLink>
                   </div>
             </main>
       )

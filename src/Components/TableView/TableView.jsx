@@ -16,11 +16,23 @@ function TableView(){
             highlightOnHover: true,
       });
       const customTheme = {
-            Table: `
-                  --data-table-library_grid-template-columns:  70px repeat(5, minmax(0, 1fr));
+            // Table: `
+            //       --data-table-library_grid-template-columns:  70px repeat(5, minmax(0, 1fr));
             
-                  margin: 16px 0px;
-            `,
+            //       margin: 5px 0px;
+            // `,
+            HeaderRow: `
+            .th {
+              border-bottom: 1px solid #a0a8ae;
+            }
+          `,
+        BaseCell: `
+            &:not(:last-of-type) {
+              border-right: 1px solid #a0a8ae;
+            }
+    
+            padding: 5px 5px;
+          `,
       };
       const theme = useTheme([materialTheme, customTheme]);
 
@@ -109,78 +121,77 @@ function TableView(){
             setStartEntry(start)
             setEndEntry(end)
       }
-
-
+      
       return (
             <>
-                  <div className='table-header' style={{ display:"flex", justifyContent:"space-between", width:"100%"}}>
-                        <label htmlFor="select" style={{fontSize:'14px', fontWeight:'400'}}>
-                              Show
-                              <select className='show-entries' onChange={changeSelect} style={{marginLeft:'10px', marginRight:'10px',borderColor:'steelblue', color:'steelblue', height:'29px', fontWeight:'600'}}>
-                                    {showEntries.map(entry => {
-                                          return <option key={entry} style={{borderColor:'steelblue'}}>{entry}</option>
+            <div className='table-header' style={{display:'flex', justifyContent:'space-between',width:'100%',marginTop:'20px',marginBottom:'20px'}}>
+                  <label htmlFor="select" style={{fontSize:'14px', fontWeight:'400'}}>
+                        Show
+                        <select className='show-entries' onChange={changeSelect} style={{marginLeft:'10px', marginRight:'10px',borderColor:'steelblue', color:'steelblue', height:'29px', fontWeight:'600'}}>
+                              {showEntries.map(entry => {
+                                    return <option key={entry} style={{borderColor:'steelblue'}} aria-label={`To show ${entry} entries`}>{entry}</option>
+                              })}
+                        </select>entries
+                  </label>
+                  <label htmlFor="search" style={{fontSize:'14px', fontWeight:'400'}}>
+                        Search:
+                        <input id="search" type="text" value={search} onChange={handleSearch} style={{textAlign:'left', marginLeft:'10px', borderColor:'steelblue',height:'29px', color:'steelblue', fontWeight:'600'}}/>
+                  </label>
+            </div>
+            <Table data={newData} sort={sort} theme={theme} pagination={pagination} style={{color:"black"}}>
+            {(tableList) => (
+                  <>
+                  <Header>
+                        <HeaderRow style={{padding:'0', fontWeight:'500'}}>
+                              <HeaderCellSort sortKey="FIRSTNAME" key="FIRSTNAME" style={{paddingTop:'5',fontWeight:'500', whiteSpace: 'unset' }}>First name</HeaderCellSort>
+                              <HeaderCellSort sortKey="LASTNAME" key="LASTNAME">Last name</HeaderCellSort>
+                              <HeaderCellSort sortKey="STARTDATE" key="STARTDATE">Start date</HeaderCellSort>
+                              <HeaderCellSort sortKey="DEPARTMENT" key="DEPARTMENT">Department</HeaderCellSort>
+                              <HeaderCellSort sortKey="BIRTHDATE" key="BIRTHDATE">Date of birth</HeaderCellSort>
+                              <HeaderCellSort sortKey="STREET" key="STREET">Street</HeaderCellSort>
+                              <HeaderCellSort sortKey="CITY" key="CITY">City</HeaderCellSort>
+                              <HeaderCellSort sortKey="STATE" key="STATE" style={{whiteSpace: 'unset' }}>State</HeaderCellSort>
+                              <HeaderCellSort sortKey="ZIPCODE" key="ZIPCODE">Zipcode</HeaderCellSort>
+                        </HeaderRow>
+                  </Header>
+                  <Body>
+                        {tableList.map((item) => (
+                        <Row item={item.employee} style={{width:'100%'}}>
+                              <Cell >{item.employee.firstName}</Cell>
+                              {/* <Cell>
+                                    {item.deadline.toLocaleDateString("en-US", {
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
                                     })}
-                              </select>entries
-                        </label>
-                        <label htmlFor="search" style={{fontSize:'14px',fontWeight:'400'}}>
-                              Search:
-                              <input id="search" type="text" value={search} onChange={handleSearch} style={{textAlign:'left', marginLeft:'10px', borderColor:'steelblue',height:'29px', color:'steelblue', fontWeight:'600'}}/>
-                        </label>
-                  </div>
-                  <Table data={newData} sort={sort} theme={theme} pagination={pagination} style={{color:"black"}}>
-                  {(tableList) => (
-                        <>
-                        <Header>
-                              <HeaderRow>
-                                    <HeaderCellSort sortKey="FIRSTNAME" key="FIRSTNAME" className='cell-titre'>First name</HeaderCellSort>
-                                    <HeaderCellSort sortKey="LASTNAME" key="LASTNAME" className='cell-titre'>Last name</HeaderCellSort>
-                                    <HeaderCellSort sortKey="STARTDATE" key="STARTDATE" className='cell-titre'>Start date</HeaderCellSort>
-                                    <HeaderCellSort sortKey="DEPARTMENT" key="DEPARTMENT" className='cell-titre'>Department</HeaderCellSort>
-                                    <HeaderCellSort sortKey="BIRTHDATE" key="BIRTHDATE" className='cell-titre'>Date of birth</HeaderCellSort>
-                                    <HeaderCellSort sortKey="STREET" key="STREET" className='cell-titre'>Street</HeaderCellSort>
-                                    <HeaderCellSort sortKey="CITY" key="CITY" className='cell-titre'>City</HeaderCellSort>
-                                    <HeaderCellSort sortKey="STATE" key="STATE" className='cell-titre'>State</HeaderCellSort>
-                                    <HeaderCellSort sortKey="ZIPCODE" key="ZIPCODE" className='cell-titre'>Zipcode</HeaderCellSort>
-                              </HeaderRow>
-                        </Header>
-                        <Body>
-                              {tableList.map((item) => (
-                              <Row item={item.employee}>
-                                    <Cell >{item.employee.firstName}</Cell>
-                                    {/* <Cell>
-                                          {item.deadline.toLocaleDateString("en-US", {
-                                          year: "numeric",
-                                          month: "2-digit",
-                                          day: "2-digit",
-                                          })}
-                                    </Cell> */}
-                                    <Cell >{item.employee.lastName}</Cell>
-                                    <Cell >{item.employee.startDate}</Cell>
-                                    <Cell >{item.employee.department}</Cell>
-                                    <Cell >{item.employee.birthDate}</Cell>
-                                    <Cell >{item.employee.street}</Cell>
-                                    <Cell >{item.employee.city}</Cell>
-                                    <Cell >{item.employee.state}</Cell>
-                                    <Cell >{item.employee.zipCode}</Cell>
-                              </Row>
-                              ))}
-                        </Body>
-                        </>
-                        )}
-                  </Table>
+                              </Cell> */}
+                              <Cell >{item.employee.lastName}</Cell>
+                              <Cell >{item.employee.startDate}</Cell>
+                              <Cell >{item.employee.department}</Cell>
+                              <Cell >{item.employee.birthDate}</Cell>
+                              <Cell >{item.employee.street}</Cell>
+                              <Cell >{item.employee.city}</Cell>
+                              <Cell style={{whiteSpace: 'unset',overflowWrap: "break-word" }}>{item.employee.state}</Cell>
+                              <Cell >{item.employee.zipCode}</Cell>
+                        </Row>
+                        ))}
+                  </Body>
+                  </>
+                  )}
+            </Table>
 
-                  <div className='table-footer' style={{display:"flex", justifyContent:"space-between", width:"100%"}}>
-                        <span>Showing <b className='bold-text'>{startEntry}</b> to <b className='bold-text'>{endEntry}</b> of <b className='bold-text'>{newData.nodes.length}</b> entries</span>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                              <span>Total Pages: {pagination.state.getTotalPages(newData.nodes)}</span>
-                              <span>Page:{' '} {pagination.state.getPages(newData.nodes).map((_, index) => (
-                                    <button key={index} type="button" style={{ fontWeight: pagination.state.page === index ? 'bold' : 'normal',}} onClick={() => pagination.fns.onSetPage(index)}>
-                                          {index + 1}
-                                    </button>
-                              ))}
-                              </span>
-                        </div>
+            <div style={{display:"flex", justifyContent:"space-between", width:"100%", marginTop: '30px',marginBottom: '20px'}}>
+                  <span style={{alignSelf: 'center'}}>Showing <b className='bold-text'>{startEntry}</b> to <b className='bold-text'>{endEntry}</b> of <b className='bold-text'>{newData.nodes.length}</b> entries</span>
+                  <div style={{ display: 'flex', width:'50%', justifyContent: 'space-between' }}>
+                        <span style={{alignSelf: 'center'}}>Total Pages: {pagination.state.getTotalPages(newData.nodes)}</span>
+                        <span>Page:{' '} {pagination.state.getPages(newData.nodes).map((_, index) => (
+                              <button key={index} type="button" aria-label={`To go on the page ${index+1}`} style={{ margin:'2px',fontWeight: pagination.state.page === index ? 'bold' : 'normal',}} onClick={() => pagination.fns.onSetPage(index)}>
+                                    {index + 1}
+                              </button>
+                        ))}
+                        </span>
                   </div>
+            </div>
             </>
       );
 }

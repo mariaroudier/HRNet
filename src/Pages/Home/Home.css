@@ -32,7 +32,10 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 50px;
+  padding-top: 20px;
 }
+
 
 label {
   display: block;
@@ -40,27 +43,6 @@ label {
   margin-bottom: 5px;
   font-weight: 500;
   font-size: 16px;
-}
-
-legend {
-  font-weight: 600;
-  font-size: 17px;
-  color: steelblue;
-}
-
-.address {
-  width: 70%;
-  margin-top: 25px;
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-color: steelblue;
-  padding-bottom: 20px;
-}
-
-.create-employee {
-  width: 50%;
 }
 
 input {
@@ -96,16 +78,4 @@ input::placeholder {
   -moz-border-radius: 0;
   -ms-border-radius: 0;
   -o-border-radius: 0;
-}
-
-.btn-submit {
-  width: 130px;
-  height: 40px;
-  margin-top: 15px;
-  margin-bottom: 50px;
-  background-color: steelblue;
-  border: none;
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
 }

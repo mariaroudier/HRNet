@@ -1,4 +1,8 @@
-.cell-titre {
-      word-break: normal;
-      padding: 0;
+.css-3jta8p-CELL_CONTAINER_STYLE-Cell {
+      padding-left: 0;
+      padding-right: 0;
+}
+
+.bold-text {
+      font-weight: 600;
 }
