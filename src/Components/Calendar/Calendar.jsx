@@ -5,8 +5,7 @@ import { getMonth, getYear } from 'date-fns'
 
 import "react-datepicker/dist/react-datepicker.css"
 import './Calendar.css'
-
-
+import homeIcon from './home.png'
 
 function Calendar({ toCommitDate, modalState }) {
 
@@ -54,9 +53,9 @@ function Calendar({ toCommitDate, modalState }) {
             display:"flex"
           }}>
             <button className="calendar-select" onClick={ e=> { e.preventDefault(); decreaseMonth()}} disabled={prevMonthButtonDisabled}>
-              <i className="fa-solid fa-caret-left"></i>
+            ←
             </button>
-            <button ><i className="fa-solid fa-house" onClick={(e) => { e.preventDefault(); changeYear("2023"); changeMonth("03")}}></i></button>
+            <button ><img src={homeIcon} alt='Today' onClick={(e) => { e.preventDefault(); changeYear("2023"); changeMonth("03")}} /></button>
           </div>
           <div style={{
             display:"flex",
@@ -73,7 +72,6 @@ function Calendar({ toCommitDate, modalState }) {
                 </option>
               ))}
             </select>
-          
             <select className='calendar-select'
               value={getYear(date)}
               onChange={({ target: { value } }) => changeYear(value)}>
@@ -84,7 +82,7 @@ function Calendar({ toCommitDate, modalState }) {
               ))}
             </select>
             <button className="calendar-select" onClick={e=> { e.preventDefault(); increaseMonth()}} disabled={nextMonthButtonDisabled}>
-              <i className="fa-solid fa-caret-right"></i>
+            →
             </button>
           </div>
         </div>
@@ -94,9 +92,7 @@ function Calendar({ toCommitDate, modalState }) {
       onChange={(value) => { toCommitDate(value); onChangeDate(value)}}
       tabIndex={1}
       placeholderText="Click to select a date"
-      
     />
   );
 }
-
 export default Calendar;

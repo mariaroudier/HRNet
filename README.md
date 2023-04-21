@@ -6,11 +6,11 @@ HRNet -  is a project which was built for creating a database of employees that 
 ## Requirements
 First of all You need to install Node.js v19.7.0 or latest version.
 
-Used Technologies:
+#### Used Technologies:
 react
 react-redux
 
-Libraries:
+#### Libraries:
 react-datepicker
 date-fns
 react-select
