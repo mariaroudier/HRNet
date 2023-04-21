@@ -155,18 +155,18 @@ function TableView(){
                         </HeaderRow>
                   </Header>
                   <Body>
-                        {tableList.map((item) => {
+                        {tableList.map((item,index) => {
                               return (
                               <Row item={item} style={{width:'100%'}} role="grid">
-                                    <Cell  role="gridcell">{item.firstName}</Cell>
-                                    <Cell  role="gridcell">{item.lastName}</Cell>
-                                    <Cell  role="gridcell">{item.startDate}</Cell>
-                                    <Cell  role="gridcell">{item.department}</Cell>
-                                    <Cell  role="gridcell">{item.birthDate}</Cell>
-                                    <Cell  role="gridcell">{item.street}</Cell>
-                                    <Cell  role="gridcell">{item.city}</Cell>
-                                    <Cell  role="gridcell">{item.state}</Cell>
-                                    <Cell  role="gridcell">{item.zipCode}</Cell>
+                                    <Cell tabIndex={1 + index * 9} role="gridcell">{item.firstName}</Cell>
+                                    <Cell  tabIndex={2 + index * 9} role="gridcell">{item.lastName}</Cell>
+                                    <Cell  tabIndex={3 + index * 9} role="gridcell">{item.startDate}</Cell>
+                                    <Cell  tabIndex={4 + index * 9}role="gridcell">{item.department}</Cell>
+                                    <Cell  tabIndex={5 + index * 9}role="gridcell">{item.birthDate}</Cell>
+                                    <Cell  tabIndex={6 + index * 9}role="gridcell">{item.street}</Cell>
+                                    <Cell tabIndex={7 + index * 9}role="gridcell">{item.city}</Cell>
+                                    <Cell  tabIndex={8 + index * 9}role="gridcell">{item.state}</Cell>
+                                    <Cell  tabIndex={9 + index * 9} role="gridcell">{item.zipCode}</Cell>
                               </Row>
                         )})}
                   </Body>
