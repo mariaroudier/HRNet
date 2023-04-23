@@ -9,6 +9,15 @@ import { useSort,HeaderCellSort } from '@table-library/react-table-library/sort'
 import './TableView.css'
 
 function TableView(){
+
+      const getStateEmployees = useSelector((state) => state.employeesStateReducer);
+      const employees = getStateEmployees.employees
+      const nodes = employees !== null ?  employees : []
+      let data = { nodes };
+
+      const [search, setSearch] = React.useState('');
+      const [newData, setNewData] = React.useState(data)
+
       // Imported design of the library
       const materialTheme = getTheme({
             ...DEFAULT_OPTIONS,
@@ -30,14 +39,6 @@ function TableView(){
           `,
       };
       const theme = useTheme([materialTheme, customTheme]);
-
-      const getStateEmployees = useSelector((state) => state.employeesStateReducer);
-      const employees = getStateEmployees.employees
-      const nodes = employees !== null ?  employees : []
-      let data = { nodes };
-
-      const [search, setSearch] = React.useState('');
-      const [newData, setNewData] = React.useState(data)
 
       // Table functionality
             // sorting 
@@ -82,7 +83,6 @@ function TableView(){
                   onChange: onPaginationChange,
             }
       );
-
       function onPaginationChange(action, state) {
             const currentPage = state.page
             const size = state.size
@@ -111,7 +111,6 @@ function TableView(){
             .map(nodeComplex => nodeComplex.node)
             setNewData({nodes:filteredData})             
       }
-
       const handleSearch = (event) => {
             setSearch(event.target.value);
             if (event.target.value.length > 0 ) {
@@ -139,39 +138,37 @@ function TableView(){
                   </label>
             </div>
             <Table data={newData} sort={sort} theme={theme} pagination={pagination} style={{color:"black"}}>
-            {(tableList) => (
-                  <>
-                  <Header>
-                        <HeaderRow role="grid">
-                              <HeaderCellSort sortKey="FIRSTNAME" key="FIRSTNAME" role="gridcell">First name</HeaderCellSort>
-                              <HeaderCellSort sortKey="LASTNAME" key="LASTNAME" role="gridcell">Last name</HeaderCellSort>
-                              <HeaderCellSort sortKey="STARTDATE" key="STARTDATE" role="gridcell">Start date</HeaderCellSort>
-                              <HeaderCellSort sortKey="DEPARTMENT" key="DEPARTMENT" role="gridcell">Department</HeaderCellSort>
-                              <HeaderCellSort sortKey="BIRTHDATE" key="BIRTHDATE" role="gridcell">Date of birth</HeaderCellSort>
-                              <HeaderCellSort sortKey="STREET" key="STREET" role="gridcell">Street</HeaderCellSort>
-                              <HeaderCellSort sortKey="CITY" key="CITY" role="gridcell">City</HeaderCellSort>
-                              <HeaderCellSort sortKey="STATE" key="STATE" style={{whiteSpace: 'unset' }} role="gridcell">State</HeaderCellSort>
-                              <HeaderCellSort sortKey="ZIPCODE" key="ZIPCODE" role="gridcell">Zipcode</HeaderCellSort>
-                        </HeaderRow>
-                  </Header>
-                  <Body>
-                        {tableList.map((item,index) => {
-                              return (
-                              <Row item={item} style={{width:'100%'}} role="grid">
-                                    <Cell tabIndex={1 + index * 9} role="gridcell">{item.firstName}</Cell>
-                                    <Cell  tabIndex={2 + index * 9} role="gridcell">{item.lastName}</Cell>
-                                    <Cell  tabIndex={3 + index * 9} role="gridcell">{item.startDate}</Cell>
-                                    <Cell  tabIndex={4 + index * 9}role="gridcell">{item.department}</Cell>
-                                    <Cell  tabIndex={5 + index * 9}role="gridcell">{item.birthDate}</Cell>
-                                    <Cell  tabIndex={6 + index * 9}role="gridcell">{item.street}</Cell>
-                                    <Cell tabIndex={7 + index * 9}role="gridcell">{item.city}</Cell>
-                                    <Cell  tabIndex={8 + index * 9}role="gridcell">{item.state}</Cell>
-                                    <Cell  tabIndex={9 + index * 9} role="gridcell">{item.zipCode}</Cell>
-                              </Row>
-                        )})}
-                  </Body>
-                  </>)
-            }
+                  {(tableList) => (
+                        <>
+                        <Header>
+                              <HeaderRow role="grid">
+                                    <HeaderCellSort sortKey="FIRSTNAME" key="FIRSTNAME" role="gridcell">First name</HeaderCellSort>
+                                    <HeaderCellSort sortKey="LASTNAME" key="LASTNAME" role="gridcell">Last name</HeaderCellSort>
+                                    <HeaderCellSort sortKey="STARTDATE" key="STARTDATE" role="gridcell">Start date</HeaderCellSort>
+                                    <HeaderCellSort sortKey="DEPARTMENT" key="DEPARTMENT" role="gridcell">Department</HeaderCellSort>
+                                    <HeaderCellSort sortKey="BIRTHDATE" key="BIRTHDATE" role="gridcell">Date of birth</HeaderCellSort>
+                                    <HeaderCellSort sortKey="STREET" key="STREET" role="gridcell">Street</HeaderCellSort>
+                                    <HeaderCellSort sortKey="CITY" key="CITY" role="gridcell">City</HeaderCellSort>
+                                    <HeaderCellSort sortKey="STATE" key="STATE" style={{whiteSpace: 'unset' }} role="gridcell">State</HeaderCellSort>
+                                    <HeaderCellSort sortKey="ZIPCODE" key="ZIPCODE" role="gridcell">Zipcode</HeaderCellSort>
+                              </HeaderRow>
+                        </Header>
+                        <Body>
+                              {tableList.map((item,index) => {
+                                    return (
+                                    <Row item={item} style={{width:'100%'}} role="grid">
+                                          <Cell tabIndex={1 + index * 9} role="gridcell">{item.firstName}</Cell>
+                                          <Cell  tabIndex={2 + index * 9} role="gridcell">{item.lastName}</Cell>
+                                          <Cell  tabIndex={3 + index * 9} role="gridcell">{item.startDate}</Cell>
+                                          <Cell  tabIndex={4 + index * 9}role="gridcell">{item.department}</Cell>
+                                          <Cell  tabIndex={5 + index * 9}role="gridcell">{item.birthDate}</Cell>
+                                          <Cell  tabIndex={6 + index * 9}role="gridcell">{item.street}</Cell>
+                                          <Cell tabIndex={7 + index * 9}role="gridcell">{item.city}</Cell>
+                                          <Cell  tabIndex={8 + index * 9}role="gridcell">{item.state}</Cell>
+                                          <Cell  tabIndex={9 + index * 9} role="gridcell">{item.zipCode}</Cell>
+                                    </Row>
+                              )})}
+                        </Body></>)}
             </Table>
             <div style={{display:"flex", justifyContent:"space-between", width:"100%", marginTop: '30px',marginBottom: '20px'}}>
                   <span style={{alignSelf: 'center'}}>Showing <b className='bold-text'>{startEntry}</b> to <b className='bold-text'>{endEntry}</b> of <b className='bold-text'>{newData.nodes.length}</b> entries</span>

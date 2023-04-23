@@ -52,10 +52,10 @@ function Calendar({ toCommitDate, modalState }) {
           <div style={{
             display:"flex"
           }}>
-            <button className="calendar-select" onClick={ e=> { e.preventDefault(); decreaseMonth()}} disabled={prevMonthButtonDisabled}>
+            <button className="calendar-select" onClick={ e=> { e.preventDefault(); decreaseMonth()}} disabled={prevMonthButtonDisabled} style={{cursor:'pointer'}}>
             ←
             </button>
-            <button ><img src={homeIcon} alt='Today' onClick={(e) => { e.preventDefault(); changeYear("2023"); changeMonth("03")}} /></button>
+            <button style={{padding:'0', border: 'none',marginLeft: '5px',marginRight: '5px', cursor:'pointer'}}><img src={homeIcon} alt='Today' onClick={(e) => { e.preventDefault(); changeYear("2023"); changeMonth("03")}} style={{height:'18px', width:'18px', verticalAlign: 'middle'}} /></button>
           </div>
           <div style={{
             display:"flex",
@@ -65,7 +65,7 @@ function Calendar({ toCommitDate, modalState }) {
               value={months[getMonth(date)]}
               onChange={({ target: { value } }) =>
                 changeMonth(months.indexOf(value))
-              }>
+              } style={{cursor:'pointer'}}>
               {months.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -74,14 +74,14 @@ function Calendar({ toCommitDate, modalState }) {
             </select>
             <select className='calendar-select'
               value={getYear(date)}
-              onChange={({ target: { value } }) => changeYear(value)}>
+              onChange={({ target: { value } }) => changeYear(value)} style={{cursor:'pointer'}}>
               {years.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
               ))}
             </select>
-            <button className="calendar-select" onClick={e=> { e.preventDefault(); increaseMonth()}} disabled={nextMonthButtonDisabled}>
+            <button className="calendar-select" onClick={e=> { e.preventDefault(); increaseMonth()}} disabled={nextMonthButtonDisabled} style={{cursor:'pointer'}}>
             →
             </button>
           </div>
